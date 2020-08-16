@@ -1,8 +1,15 @@
+# =====================================================================================================================
+# MAIN SCRIPT:
+# The glue that holds all this mess together. everything that is run is run here, and its like a kind of gathering
+# for all of the different packages that make up the game.
+# =====================================================================================================================
+
 import curses
 from curses import textpad
 import time
 import gui as gui
 import texthelper as txt
+import vars
 import os
 
 WINDOW_X = 100  # Width of the window
@@ -14,12 +21,6 @@ Active = True  # Determines when the game is running or not
 
 tickspeed = 60  # Also known as framerate. How many times a second a tick is added
 tick = 0  # What tick the game is on
-
-user_input = ""
-scroll_view = ["#1and info. plans for next update, add in dynamic health and simple commands.",
-               "#1Release Notes (Alpha 0.1): Basic UI added, ability to type, scrolling view, basic health",
-               "#7Dungeon Master (Dryad)", "", "", "", "", "", "", "", "", "", "",
-               "", "", "", "", "", "", "", "", "", "", ""]
 
 
 # Handles all of the things that need to be done before the game can run
@@ -58,9 +59,6 @@ def update():
 
 # Everything inside here is run on every tick
 def game_loop(screen, y, x):
-    global user_input
-    global scroll_view
-
     event = screen.getch()
 
     # Screen refreshing if the screen has been resized
@@ -73,7 +71,7 @@ def game_loop(screen, y, x):
     # ===================================================================
     # Drawing all of the different aspects that make up the frame
     # ===================================================================
-    gui.load_all(screen, y, x, scroll_view)
+    gui.load_all(screen, y, x, vars.scroll_view)
 
     # handles all of the input for typing
     if event != -1:
@@ -81,31 +79,31 @@ def game_loop(screen, y, x):
         # General input handling for all the non-action buttons (for typing)
         # ===================================================================
         if event >= 40 or event == 32 or event == 33:
-            if len(user_input) < 90:
-                user_input += str(chr(event))
+            if len(vars.user_input) < 90:
+                vars.user_input += str(chr(event))
 
         # Handling action for enter
         elif event == 10:
-            if len(user_input) > 2:
+            if len(vars.user_input) > 2:
 
-                scroll_view = gui.add_text_to_main("", scroll_view)
-                scroll_view = gui.add_text_to_main("Sample Name", scroll_view, 6)
-                scroll_view = gui.add_text_to_main(user_input, scroll_view)
+                vars.scroll_view = gui.add_text_to_main("", vars.scroll_view)
+                vars.scroll_view = gui.add_text_to_main("Sample Name", vars.scroll_view, 6)
+                vars.scroll_view = gui.add_text_to_main(vars.user_input, vars.scroll_view)
 
-                user_input = ""
+                vars.user_input = ""
                 screen.erase()
-                gui.load_all(screen, y, x, scroll_view)
+                gui.load_all(screen, y, x, vars.scroll_view)
 
         # Handling action for backspace
         elif event == 8:
-            user_input = user_input[:-1]
+            vars.user_input = vars.user_input[:-1]
             screen.erase()
-            gui.load_all(screen, y, x, scroll_view)
+            gui.load_all(screen, y, x, vars.scroll_view)
 
     # cursor ticking, will be changed/removed in the future, just a test
     cursor_speed = 10
     cursor = "|" * (tick % cursor_speed > cursor_speed / 2) + " " * (tick % cursor_speed < cursor_speed / 2)
-    screen.addstr(y - 3, 3, str(user_input + str(cursor)))
+    screen.addstr(y - 3, 3, str(vars.user_input + str(cursor)))
 
     time.sleep(1 / tickspeed)
 

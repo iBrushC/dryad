@@ -1,3 +1,10 @@
+# =====================================================================================================================
+# GRAPHICAL USER INTERFACE SCRIPT:
+# This one handles the ultra advanced HD graphics that run this incredible looking game. It holds all of the functions
+# and layouts that affect visual things. This is not a complex script.
+# =====================================================================================================================
+
+
 import curses
 from curses import textpad
 import texthelper as txt
