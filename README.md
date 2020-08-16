@@ -15,7 +15,8 @@ This game is still currently in the early alpha development stages until further
   - [ ] Create Soft Interpreter (neural network, unlimited possibilities, more room for error)
   - [ ] Create Oob Interpreter (mixture of both hard and soft interpreters, best of both worlds)
 - [ ] Set up memory database
-- [ ] Set up Object class
+- [x] Set up Player class
+- [x] Set up Object class
 - [ ] Link Objects and interactions to GUI
 - [ ] Add functioning dice
 - [ ] Impliment turn system
@@ -23,7 +24,7 @@ This game is still currently in the early alpha development stages until further
 - [ ] Create NLP neural network to convert ActionScript to normal english
 - [ ] Impliment NLP neural networks
 - [ ] Create fantasy name generation neural network
-- [ ] Set up Location class
+- [x] Set up Location class
 - [ ] Make area and map creator (hidden)
 - [ ] Make story summary creator neural network (probably finetuned GPT-3)
 - [ ] Create location interpreter
