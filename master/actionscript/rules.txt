@@ -1,0 +1,32 @@
+# ========================================================================= #
+# ActionScript: A very simple scripting language that marks relations       #
+# between objects or give return values. is used to control all in-game     #
+# events and interactions. This document is used to set up all of the rules #
+# and how things work.                                                      #
+# ========================================================================= #
+
+## Syntax ##
+All lines will start and end with a .
+
+## Objects ##
+Objects are defined by their names being in ALL CAPS
+
+Examples: PLAYER1, TREE, MOUNTAIN
+
+
+## Relations ##
+Relations are defined by having objects before and after them and starting with a $
+
+Examples: PLAYER1 $hit TREE, PLAYER1 $climb MOUNTAIN, MOUNTAIN $kill PLAYER1
+
+
+## Functions ##
+Functions are defined by having an object before them and starting with a %
+
+Examples: PLAYER1 %run, TREE %die, MOUNTAIN %fall
+
+
+## Getters ##
+Getters are defined by having an object before them and value after them and starting with a &
+
+Examples: PLAYER1 &roll 20

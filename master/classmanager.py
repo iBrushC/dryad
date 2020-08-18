@@ -13,6 +13,7 @@ class Player:
     # Public variables, can be seen in the GUI and used for actual gameplay
     name = "Player"
     hp = 100
+    armor = 0
     strength = 0
     dexterity = 0
     constitution = 0
@@ -33,11 +34,12 @@ class Player:
     # ========= #
     # Functions #
     # ========= #
-    def __init__(self, name, hp, strength, dexterity, constitution, intelligence, wisdom, charisma,
+    def __init__(self, name, hp, armor, strength, dexterity, constitution, intelligence, wisdom, charisma,
                  exhaustion=0, happiness=50, temper=0, temperature=70):
         # God this took a long time
         self.name = name
         self.hp = hp
+        self.armor = armor
         self.strength = strength
         self.dexterity = dexterity
         self.constitution = constitution

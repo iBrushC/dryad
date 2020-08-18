@@ -4,13 +4,19 @@
 # for all of the different packages that make up the game.
 # =====================================================================================================================
 
+# Basic Imports
 import curses
 from curses import textpad
 import time
 import gui as gui
-import texthelper as txt
-import vars
+import globalvars as gv
 import os
+
+# Outside folder imports
+import sys
+sys.path.append('F:/Python Projects/dryad/master/actionscript')
+from actionscript import hardinterpreter as interpreter
+
 
 WINDOW_X = 100  # Width of the window
 WINDOW_Y = 100  # Height of the window
@@ -71,39 +77,50 @@ def game_loop(screen, y, x):
     # ===================================================================
     # Drawing all of the different aspects that make up the frame
     # ===================================================================
-    gui.load_all(screen, y, x, vars.scroll_view)
+    gui.load_all(screen, y, x, gv.scroll_view)
 
     # handles all of the input for typing
     if event != -1:
         # ===================================================================
         # General input handling for all the non-action buttons (for typing)
         # ===================================================================
-        if event >= 40 or event == 32 or event == 33:
-            if len(vars.user_input) < 90:
-                vars.user_input += str(chr(event))
+        if event >= 11 or event == 32 or event == 33:
+            if len(gv.user_input) < 90:
+                gv.user_input += str(chr(event))
 
         # Handling action for enter
         elif event == 10:
-            if len(vars.user_input) > 2:
 
-                vars.scroll_view = gui.add_text_to_main("", vars.scroll_view)
-                vars.scroll_view = gui.add_text_to_main("Sample Name", vars.scroll_view, 6)
-                vars.scroll_view = gui.add_text_to_main(vars.user_input, vars.scroll_view)
+            data = interpreter.parse_data(gv.user_input)
 
-                vars.user_input = ""
-                screen.erase()
-                gui.load_all(screen, y, x, vars.scroll_view)
+            if len(gv.user_input) > 2:
+                if data == gv.user_input:
+                    gv.scroll_view = gui.add_text_to_main("", gv.scroll_view)
+                    gv.scroll_view = gui.add_text_to_main(gv.reference[gv.active_player + 1].name, gv.scroll_view, 6)
+                    gv.scroll_view = gui.add_text_to_main(gv.user_input, gv.scroll_view)
+
+                    gv.user_input = ""
+                    screen.erase()
+                    gui.load_all(screen, y, x, gv.scroll_view)
+                else:
+                    gv.scroll_view = gui.add_text_to_main("", gv.scroll_view)
+                    gv.scroll_view = gui.add_text_to_main("Dungeon Master", gv.scroll_view, 7)
+                    gv.scroll_view = gui.add_text_to_main(data, gv.scroll_view)
+
+                    gv.user_input = ""
+                    screen.erase()
+                    gui.load_all(screen, y, x, gv.scroll_view)
 
         # Handling action for backspace
         elif event == 8:
-            vars.user_input = vars.user_input[:-1]
+            gv.user_input = gv.user_input[:-1]
             screen.erase()
-            gui.load_all(screen, y, x, vars.scroll_view)
+            gui.load_all(screen, y, x, gv.scroll_view)
 
     # cursor ticking, will be changed/removed in the future, just a test
     cursor_speed = 10
     cursor = "|" * (tick % cursor_speed > cursor_speed / 2) + " " * (tick % cursor_speed < cursor_speed / 2)
-    screen.addstr(y - 3, 3, str(vars.user_input + str(cursor)))
+    screen.addstr(y - 3, 3, str(gv.user_input + str(cursor)))
 
     time.sleep(1 / tickspeed)
 
