@@ -8,17 +8,17 @@ This game is still currently in the early alpha development stages until further
 - [x] Create development checklist
 - [x] Basic command line interface
   - [x] Fix flickering issues
-  - [ ] Add area for multiple players and dice rolling
-- [ ] Create ActionScript
-- [ ] Create ActionScript interpreter
-  - [ ] Create Hard Interpreter (hard-coded, set amount of actions, no room for error)
+  - [x] Add area for multiple players and dice rolling
+- [x] Create ActionScript
+- [x] Create ActionScript interpreter
+  - [x] Create Hard Interpreter (hard-coded, set amount of actions, no room for error)
   - [ ] Create Soft Interpreter (neural network, unlimited possibilities, more room for error)
   - [ ] Create Oob Interpreter (mixture of both hard and soft interpreters, best of both worlds)
 - [ ] Set up memory database
 - [x] Set up Player class
 - [x] Set up Object class
-- [ ] Link Objects and interactions to GUI
-- [ ] Add functioning dice
+- [x] Link Objects and interactions to GUI
+- [x] Add functioning dice
 - [ ] Impliment turn system
 - [ ] Create Natural Language Processing (NLP) neural network to convert normal english to ActionScript
 - [ ] Create NLP neural network to convert ActionScript to normal english
